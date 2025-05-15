@@ -2,7 +2,7 @@ function Layout() {
   return (
     <>
       <div>
-        Hello world update
+        Hello world
       </div>
     </>
   )
