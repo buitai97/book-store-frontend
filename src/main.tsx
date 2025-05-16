@@ -7,7 +7,9 @@ import AboutPage from 'components/pages/client/about'
 import HomePage from 'components/pages/client/home'
 import LoginPage from 'components/pages/client/auth/login'
 import RegisterPage from 'components/pages/client/auth/register'
+import { App } from 'antd'
 import 'styles/global.scss'
+import { AppProvider } from 'components/context/app.context'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +37,10 @@ const router = createBrowserRouter([
 )
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {/* <Layout /> */}
-    <RouterProvider router={router}></RouterProvider>
+    <App>
+      <AppProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </AppProvider>
+    </App>
   </StrictMode>,
 )
