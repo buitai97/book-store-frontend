@@ -10,7 +10,7 @@
       "@/*": ["./src/*"],
       "asset/*": ["./src/assets/*"],
       "components/*":["./src/components/*"],
-      "pages/*": ["./src/pages/*"],
+      "pages/*": ["./src/components/pages/*"],
       "styles/*": ["./src/styles/*"],
       "services/*": ["./src/services/*"],
     },

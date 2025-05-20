@@ -16,7 +16,7 @@ type FieldType = {
 const LoginPage = () => {
     const [isSubmit, setIsSubmit] = useState(false)
     const { message, notification } = App.useApp()
-    const { setCurrentUser, setIsAuthenticated } = useCurrentApp()
+    const { setUser, setIsAuthenticated } = useCurrentApp()
     const navigate = useNavigate()
 
 
@@ -25,7 +25,7 @@ const LoginPage = () => {
             setIsSubmit(true)
             const res = await loginAPI(values.email, values.password)
             if (res && res.data) {
-                setCurrentUser(res.data.user)
+                setUser(res.data.user)
                 setIsAuthenticated(true)
                 localStorage.setItem('access_token', res.data.access_token)
                 message.success("Login successfully!")

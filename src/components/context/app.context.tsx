@@ -1,12 +1,14 @@
-import { createContext, useContext, useState } from 'react';
+import { fetchAccountAPI } from "@/services/api";
+import { createContext, useContext, useEffect, useState } from "react";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 interface IAppContext {
-    isAuthenticated: boolean
-    currentUser: IUser | null
-    isAppLoading: boolean
-    setIsAuthenticated: (v: boolean) => void
-    setCurrentUser: (v: IUser) => void
-    setIsAppLoading: (v: boolean) => void
+    isAuthenticated: boolean;
+    setIsAuthenticated: (v: boolean) => void;
+    setUser: (v: IUser | null) => void;
+    user: IUser | null;
+    isAppLoading: boolean;
+    setIsAppLoading: (v: boolean) => void;
 }
 
 const CurrentAppContext = createContext<IAppContext | null>(null);
@@ -15,30 +17,61 @@ type TProps = {
     children: React.ReactNode
 }
 
-
 export const AppProvider = (props: TProps) => {
-    const [currentUser, setCurrentUser] = useState<IUser | null>(null)
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-    const [isAppLoading, setIsAppLoading] = useState<boolean>(true)
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [user, setUser] = useState<IUser | null>(null);
+    const [isAppLoading, setIsAppLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const fetchAccount = async () => {
+            const res = await fetchAccountAPI();
+            if (res.data) {
+                setUser(res.data.user);
+                setIsAuthenticated(true);
+            }
+            setIsAppLoading(false)
+        }
+
+        fetchAccount();
+    }, [])
+
     return (
-        <CurrentAppContext.Provider value={{
-            currentUser, isAuthenticated, setCurrentUser, setIsAuthenticated, isAppLoading, setIsAppLoading
-        }}>
-            {props.children}
-        </CurrentAppContext.Provider>
+        <>
+            {isAppLoading === false ?
+                <CurrentAppContext.Provider value={{
+                    isAuthenticated, user, setIsAuthenticated, setUser,
+                    isAppLoading, setIsAppLoading
+                }}>
+                    {props.children}
+                </CurrentAppContext.Provider>
+                :
+                <div style={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)"
+                }}>
+                    <PacmanLoader
+                        size={30}
+                        color="#36d6b4"
+                    />
+                </div>
+            }
+
+        </>
+
     );
-}
+};
 
 export const useCurrentApp = () => {
-    const currentUserContext = useContext(CurrentAppContext);
+    const currentAppContext = useContext(CurrentAppContext);
 
-    if (!currentUserContext) {
+    if (!currentAppContext) {
         throw new Error(
-            "useCurrentUser has to be used within <CurrentUserContext.Provider>"
+            "useCurrentApp has to be used within <CurrentAppContext.Provider>"
         );
     }
 
-    return currentUserContext;
+    return currentAppContext;
 };
-
 
