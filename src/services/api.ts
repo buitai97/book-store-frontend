@@ -1,3 +1,4 @@
+import Item from 'antd/es/list/Item'
 import axios from 'services/axios.customize'
 export const loginAPI = (username: string, password: string) => {
     const urlBackend = '/api/v1/auth/login'
@@ -30,12 +31,32 @@ export const fetchAccountAPI = () => {
     const urlBackend = '/api/v1/auth/account'
     return axios.get<IBackendRes<IFetchAccount>>(urlBackend, {
         headers: {
-            delay: 2000
+            delay: 1000
         }
     })
 }
 
-export const getUsersAPI = (current: number, pageSize: number) => {
-    const urlBackend = `/api/v1/user?current=${current}&pageSize=${pageSize}`
+export const getUsersAPI = (query: string) => {
+    const urlBackend = `/api/v1/user?${query}`
     return axios.get<IBackendRes<IModelPaginate<IUserTable>>>(urlBackend)
+}
+
+export const addUserAPI = (fullName: string, email: string, password: string, phone: string) => {
+    const urlBackend = "/api/v1/user?"
+    return axios.post<IBackendRes<IRegister>>(urlBackend, { fullName, email, password, phone })
+}
+
+export const createUsersBulkAPI = (users: ICreateUser[]) => {
+    const urlBackend = "/api/v1/user/bulk-create"
+    return axios.post<IBackendRes<IResponseImport>>(urlBackend, users, {
+        headers: {
+            delay: 1000
+        }
+    })
+}
+
+export const deleteUserAPI = (id: string) => {
+    const urlBackend = `/api/v1/user/${id}`
+
+    return axios.delete<IBackendRes<IRegister>>(urlBackend)
 }

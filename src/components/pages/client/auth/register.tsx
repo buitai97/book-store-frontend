@@ -19,7 +19,6 @@ const RegisterPage = () => {
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         if (values.email && values.fullName && values.password && values.phone) {
             setIsSubmit(true)
-            console.log(">>> check values: ", values)
             const res = await registerAPI(values.fullName, values.password, values.email, values.phone)
             if (res && res.data) {
                 message.success('Registered Successfully!');
@@ -30,7 +29,6 @@ const RegisterPage = () => {
                 message.error(res.message)
             }
         }
-
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -80,7 +78,7 @@ const RegisterPage = () => {
             <Form.Item<FieldType>
                 label="Phone"
                 name="phone"
-                rules={[{ required: true, message: 'Please input your phone number!' }]}
+                rules={[{ required: true, message: 'Please input your phone number!' }, { type: "email", message: "Not a valid email!" }]}
             >
                 <Input />
             </Form.Item>

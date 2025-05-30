@@ -60,4 +60,17 @@ declare global {
         createdAt: Date,
         updatedAt: Date,
     }
+
+    interface ICreateUser {
+        fullName: string,
+        email: string,
+        phone: string,
+        password: string
+    }
+
+    interface IResponseImport {
+        countSuccess: number
+        countError: number
+        detail: any
+    }
 }
