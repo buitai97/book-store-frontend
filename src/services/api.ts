@@ -1,4 +1,3 @@
-import Item from 'antd/es/list/Item'
 import axios from 'services/axios.customize'
 export const loginAPI = (username: string, password: string) => {
     const urlBackend = '/api/v1/auth/login'
@@ -41,6 +40,11 @@ export const getUsersAPI = (query: string) => {
     return axios.get<IBackendRes<IModelPaginate<IUserTable>>>(urlBackend)
 }
 
+export const getAllUsersAPI = () => {
+    const urlBackend = `/api/v1/user`
+    return axios.get<IBackendRes<IUserTable[]>>(urlBackend)
+}
+
 export const addUserAPI = (fullName: string, email: string, password: string, phone: string) => {
     const urlBackend = "/api/v1/user?"
     return axios.post<IBackendRes<IRegister>>(urlBackend, { fullName, email, password, phone })
@@ -52,6 +56,15 @@ export const createUsersBulkAPI = (users: ICreateUser[]) => {
         headers: {
             delay: 1000
         }
+    })
+}
+
+export const updateUserAPI = (id: string, fullName: string, phone: string) => {
+    const urlBackend = "/api/v1/user"
+    return axios.put<IBackendRes<IRegister>>(urlBackend, {
+        _id: id,
+        fullName: fullName,
+        phone: phone
     })
 }
 

@@ -10,7 +10,6 @@ export const ProtectedRoute = (props: IProps) => {
     const { isAuthenticated, user } = useCurrentApp()
     const location = useLocation()
     const isAdminRoute = location.pathname.includes("admin")
-    console.log(user)
 
     if (!isAuthenticated) {
         return (<Result

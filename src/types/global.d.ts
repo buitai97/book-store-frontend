@@ -73,4 +73,10 @@ declare global {
         countError: number
         detail: any
     }
+
+    interface IUpdateUser {
+        _id: string,
+        fullName: string,
+        phone: string
+    }
 }

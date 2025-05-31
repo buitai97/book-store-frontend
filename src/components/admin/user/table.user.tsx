@@ -1,14 +1,16 @@
-import { deleteUserAPI, getUsersAPI } from '@/services/api';
-import { dateRangeValidate } from '@/services/helper';
+import { deleteUserAPI, getAllUsersAPI, getUsersAPI } from '@/services/api';
+import { dateRangeValidate, FORMAT_DATE_US } from '@/services/helper';
 import { CloudUploadOutlined, DeleteOutlined, EditOutlined, ExportOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button } from 'antd';
+import { Button, message, notification, Popconfirm, PopconfirmProps } from 'antd';
 import { useRef, useState } from 'react';
 import DetailUser from './detail.user';
 import AddUser from './add.user';
 import UploadUsers from './upload.users';
-
+import { CSVLink } from 'react-csv';
+import EditUser from './edit.user';
+import dayjs from 'dayjs';
 
 
 type TSearch = {
@@ -20,10 +22,17 @@ type TSearch = {
 
 
 const TableUser = () => {
-    const [openViewDetail, setOpenViewDetail] = useState<boolean>(false)
-    const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null)
+    const [openViewDetailModal, setOpenViewDetailModal] = useState<boolean>(false)
     const [openAddUserModal, setOpenAddUserModal] = useState<boolean>(false)
     const [openUploadModal, setOpenUploadModal] = useState<boolean>(false)
+    const [openEditModal, setOpenEditModal] = useState<boolean>(false)
+
+    const [isDeleteUser, setIsDeleteUser] = useState<boolean>(false)
+
+    const [usersData, setUsersData] = useState<IUserTable[]>([])
+    const [dataViewDetail, setDataViewDetail] = useState<IUserTable | null>(null)
+    const [dataEdit, setDataEdit] = useState<IUserTable | null>(null)
+
     const columns: ProColumns<IUserTable>[] = [
         {
             dataIndex: 'index',
@@ -37,7 +46,7 @@ const TableUser = () => {
             render(dom, entity, index, action, schema) {
                 return (
                     <a href="#" onClick={async () => {
-                        setOpenViewDetail(true)
+                        setOpenViewDetailModal(true)
                         setDataViewDetail(entity)
                     }}>{entity._id}</a>
                 )
@@ -55,7 +64,7 @@ const TableUser = () => {
             title: 'Created At',
             dataIndex: 'createdAt',
             valueType: 'date',
-            sorter: true
+            sorter: true,
         },
         {
             title: 'Created At Range',
@@ -70,11 +79,34 @@ const TableUser = () => {
             render(dom, entity, index, action, schema) {
                 return (
                     <>
-                        <EditOutlined style={{ color: "#f57800", cursor: "pointer", marginRight: 15 }} />
-                        <DeleteOutlined style={{ color: 'red', cursor: "pointer" }} onClick={()=> {
-                            deleteUserAPI(entity._id)
-                            refreshTable()
-                        }}/>
+                        <EditOutlined
+                            style={{ color: "#f57800", cursor: "pointer", marginRight: 15 }}
+                            onClick={async () => {
+                                setDataEdit(entity)
+                                setOpenEditModal(true)
+                            }} />
+                        <Popconfirm
+                            title="Delete User"
+                            description="Are you sure to delete this user?"
+                            onConfirm={async () => {
+                                setIsDeleteUser(true)
+                                const res = await deleteUserAPI(entity._id)
+                                if (res && res.data) {
+                                    refreshTable()
+                                    message.success("delete user successfully!")
+                                }
+                                else {
+                                    notification.error({ message: "Something happened: ", description: res.message })
+                                }
+                            }}
+                            okText="Yes"
+                            cancelText="No"
+                            okButtonProps={{ loading: isDeleteUser }}
+                        >
+                            <DeleteOutlined
+                                style={{ color: 'red', cursor: "pointer" }}
+                            ></DeleteOutlined>
+                        </Popconfirm>
                     </>
                 )
 
@@ -126,6 +158,9 @@ const TableUser = () => {
                         query += `&sort=-createdAt`
                     }
                     const res = await getUsersAPI(query)
+                    const allUsers = await getAllUsersAPI()
+                    setUsersData(allUsers.data ?? [])
+
                     if (res.data) {
                         setMeta(res.data?.meta)
                     }
@@ -159,12 +194,9 @@ const TableUser = () => {
                     <Button
                         key="Upload"
                         icon={<ExportOutlined />}
-                        onClick={() => {
-                            setOpenUploadModal(true)
-                        }}
                         type="primary"
                     >
-                        Export
+                        <CSVLink data={usersData} filename='users.csv'>Export</CSVLink>
                     </Button>,
                     <Button
                         key="button"
@@ -180,8 +212,8 @@ const TableUser = () => {
 
             />
             <DetailUser
-                openViewDetail={openViewDetail}
-                setOpenViewDetail={setOpenViewDetail}
+                openViewDetailModal={openViewDetailModal}
+                setOpenViewDetailModal={setOpenViewDetailModal}
                 dataViewDetail={dataViewDetail}
                 setDataViewDetail={setDataViewDetail}
             />
@@ -193,6 +225,13 @@ const TableUser = () => {
             <UploadUsers
                 openUploadModal={openUploadModal}
                 setOpenUploadModal={setOpenUploadModal}
+                refreshTable={refreshTable}
+            />
+            <EditUser
+                openEditModal={openEditModal}
+                setOpenEditModal={setOpenEditModal}
+                dataEdit={dataEdit}
+                setDataEdit={setDataEdit}
                 refreshTable={refreshTable}
             />
 

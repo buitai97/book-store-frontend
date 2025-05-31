@@ -1,9 +1,9 @@
 import { createUsersBulkAPI } from "@/services/api";
 import { InboxOutlined } from "@ant-design/icons";
-import { App, Modal, notification, Table, TableProps, UploadProps } from "antd";
-import Password from "antd/es/input/Password";
+import { App, Modal, Table, TableProps, UploadProps } from "antd";
 import Dragger from "antd/es/upload/Dragger";
 import Excel from "exceljs"
+import templateFile from "assets/template/testfile.xlsx?url"
 import { useState } from "react";
 interface IProps {
     openUploadModal: boolean;
@@ -142,7 +142,11 @@ const UploadUsers = (props: IProps) => {
                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
                 <p className="ant-upload-hint">
                     Support for a single file upload. Only accept .csv, .xls, .xlsx
+                    or
                 </p>
+                <a href={templateFile} onClick={(e) => {
+                    e.stopPropagation()
+                }} download>Download Sample File</a>
             </Dragger>
             <div style={{ margin: 10 }}> Data uploaded: </div>
             <Table<IDataImport>
