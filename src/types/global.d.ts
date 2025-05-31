@@ -79,4 +79,28 @@ declare global {
         fullName: string,
         phone: string
     }
+
+    interface IBookTable {
+        "_id": string,
+        "thumbnail": string,
+        "slider": string[],
+        "mainText": string,
+        "author": string,
+        "price": number,
+        "sold": number,
+        "quantity": number,
+        "category": string,
+        "createdAt": Date,
+        "updatedAt": Date,
+    }
+
+    interface ICreateBook {
+        "thumbnail": string,
+        "slider": string[],
+        "mainText": string,
+        "author": string,
+        "price": number,
+        "quantity": number,
+        "category": string
+    }
 }

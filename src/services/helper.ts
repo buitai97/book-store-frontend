@@ -11,3 +11,15 @@ export const dateRangeValidate = (dateRange: any) => {
 
     return [startDate, endDate]
 }
+
+export const convertDateToStringUS = (date: Date | undefined) => {
+    return dayjs(date).format(FORMAT_DATE_US)
+}
+
+export const convertNumberToVND = (money: number) => {
+    let VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+    return VND.format(money)
+}

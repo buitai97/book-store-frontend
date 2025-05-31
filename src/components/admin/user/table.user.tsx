@@ -1,16 +1,15 @@
 import { deleteUserAPI, getAllUsersAPI, getUsersAPI } from '@/services/api';
-import { dateRangeValidate, FORMAT_DATE_US } from '@/services/helper';
+import { dateRangeValidate } from '@/services/helper';
 import { CloudUploadOutlined, DeleteOutlined, EditOutlined, ExportOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, message, notification, Popconfirm, PopconfirmProps } from 'antd';
+import { Button, message, notification, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import DetailUser from './detail.user';
 import AddUser from './add.user';
 import UploadUsers from './upload.users';
 import { CSVLink } from 'react-csv';
 import EditUser from './edit.user';
-import dayjs from 'dayjs';
 
 
 type TSearch = {
