@@ -103,4 +103,5 @@ declare global {
         "quantity": number,
         "category": string
     }
+
 }
