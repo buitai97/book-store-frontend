@@ -1,13 +1,14 @@
-import { getBooksAPI } from "@/services/api";
+import { deleteBookAPI, getBooksAPI } from "@/services/api";
 import { DeleteOutlined, EditOutlined, ExportOutlined, PlusOutlined } from "@ant-design/icons";
-import { ProColumns, ProTable } from "@ant-design/pro-components";
-import { Button, Space } from "antd";
-import { useState } from "react";
+import { ActionType, ProColumns, ProTable } from "@ant-design/pro-components";
+import { Button, message, Popconfirm, Space } from "antd";
+import { useRef, useState } from "react";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
 import CreateBookModal from "./create.book";
 import DetailBook from "./detail.book";
 import { convertNumberToVND } from "@/services/helper";
+import UpdateBook from "./update.book";
 
 type TSearch = {
     title: string,
@@ -24,8 +25,10 @@ const TableBook = () => {
     })
     const [selectedBook, setSelectedBook] = useState<IBookTable | null>(null)
     const [currentDataTable, setCurrentDataTable] = useState<IBookTable[]>([])
+
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false)
     const [openDetailModal, setOpenDetailModal] = useState<boolean>(false)
+    const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false)
     const columns: ProColumns<IBookTable>[] = [
         {
             title: 'ID',
@@ -65,7 +68,6 @@ const TableBook = () => {
             sorter: true,
             render(dom, entity, index, action, schema) {
                 return (convertNumberToVND(entity.price))
-
             },
         },
         {
@@ -73,26 +75,60 @@ const TableBook = () => {
             dataIndex: 'updatedAt',
             valueType: "date",
             hideInSearch: true,
+            sorter: true,
         },
         {
             title: 'Action',
             key: 'action',
             hideInSearch: true,
-            render: () => (
+            render: (dom, entity, index, action, schema) => (
                 <Space>
-                    <EditOutlined style={{ color: 'orange', cursor: "pointer" }}></EditOutlined>
-                    <DeleteOutlined
-                        style={{ color: 'red', cursor: "pointer" }}
-                    ></DeleteOutlined>
+                    <EditOutlined
+                        style={{ color: 'orange', cursor: "pointer", marginRight: "10px" }}
+                        onClick={() => {
+                            setSelectedBook(entity)
+                            setOpenUpdateModal(true)
+                        }}>
+                    </EditOutlined>
+
+                    <Popconfirm
+                        title="Delete the task"
+                        description="Are you sure to delete this book?"
+                        onConfirm={async () => {
+                            const res = await deleteBookAPI(entity._id)
+                            if (res && res.data) {
+                                console.log(res.data)
+                                refreshTable()
+                            } else {
+                                console.log(res.error)
+                            }
+                        }}
+                        okType="danger"
+                        okText="Delete"
+                        okButtonProps={{}}
+                        cancelText="Cancel"
+                    >
+                        <DeleteOutlined
+                            style={{ color: 'red', cursor: "pointer" }}
+                        ></DeleteOutlined>
+                    </Popconfirm>
+
                 </Space>
             )
         }
     ];
 
+    const tableRef = useRef<ActionType>()
+    const refreshTable = () => {
+        tableRef.current?.reloadAndRest?.();
+    }
+
     return (
         <>
             <ProTable<IBookTable, TSearch>
+
                 headerTitle="Book Table"
+                actionRef={tableRef}
                 rowKey={'_id'}
                 columns={columns}
                 cardBordered
@@ -108,7 +144,7 @@ const TableBook = () => {
                         }
                     }
                     else {
-                        query += `&sort=-UpdatedAt`
+                        query += `&sort=-updatedAt`
                     }
                     const res = await getBooksAPI(query)
                     if (res.data) {
@@ -134,22 +170,35 @@ const TableBook = () => {
                     }
                 }
                 toolBarRender={() => [
-                    <Button type="primary" icon={<ExportOutlined />}><CSVLink data={currentDataTable} filename="book.csv">Export</CSVLink></Button>,
+                    <CSVLink data={currentDataTable} filename="book.csv">
+                        <Button type="primary" icon={<ExportOutlined />}>Export</Button >
+                    </CSVLink>,
                     <Button type="primary" icon={<PlusOutlined />} onClick={() => {
                         setOpenCreateModal(true)
                     }}>Add Book</Button>
                 ]}
             />
 
-            <CreateBookModal
+            < CreateBookModal
                 setOpenCreateModal={setOpenCreateModal}
-                openCreateModal={openCreateModal} />
+                openCreateModal={openCreateModal}
+                refreshTable={refreshTable}
+            />
 
             <DetailBook
                 openDetailModal={openDetailModal}
                 onClose={() => setOpenDetailModal(false)}
                 book={selectedBook}
-                setOpenDetailModal={setOpenDetailModal} />
+                setOpenDetailModal={setOpenDetailModal}
+            />
+
+            <UpdateBook
+                openUpdateModal={openUpdateModal}
+                setOpenUpdateModal={setOpenUpdateModal}
+                book={selectedBook}
+                setSelectedBook={setSelectedBook}
+                refreshTable={refreshTable}
+            />
         </>
     )
 

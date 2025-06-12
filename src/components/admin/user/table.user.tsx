@@ -98,7 +98,8 @@ const TableUser = () => {
                                     notification.error({ message: "Something happened: ", description: res.message })
                                 }
                             }}
-                            okText="Yes"
+                            okText="Delete"
+                            okType='danger'
                             cancelText="No"
                             okButtonProps={{ loading: isDeleteUser }}
                         >
@@ -190,13 +191,15 @@ const TableUser = () => {
                     >
                         Upload
                     </Button>,
-                    <Button
-                        key="Upload"
-                        icon={<ExportOutlined />}
-                        type="primary"
-                    >
-                        <CSVLink data={usersData} filename='users.csv'>Export</CSVLink>
-                    </Button>,
+                    <CSVLink data={usersData} filename='users.csv'>
+                        <Button
+                            key="Upload"
+                            icon={<ExportOutlined />}
+                            type="primary"
+                        >
+                            Export
+                        </Button >
+                    </CSVLink>,
                     <Button
                         key="button"
                         icon={<PlusOutlined />}
@@ -210,7 +213,7 @@ const TableUser = () => {
                 ]}
 
             />
-            <DetailUser
+            < DetailUser
                 openViewDetailModal={openViewDetailModal}
                 setOpenViewDetailModal={setOpenViewDetailModal}
                 dataViewDetail={dataViewDetail}
