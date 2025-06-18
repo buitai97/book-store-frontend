@@ -1,5 +1,4 @@
 import dayjs from "dayjs"
-import { v4 as uuidv4 } from 'uuid'
 
 export const FORMAT_DATE = "YYYY-MM-DD"
 export const FORMAT_DATE_US = "MM-DD-YYYY"

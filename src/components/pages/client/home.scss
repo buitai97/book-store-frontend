@@ -1,0 +1,29 @@
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    width: 160px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+
+    &__image{
+        align-self: center;
+        width: 150px;
+    }
+    &__title{
+        width: 100%;
+        font-size: small;
+        height: 3rem;
+        line-height: 0.8rem;
+    }
+    &__price{
+        font-size: xx-small;
+    }
+    &__rating{
+        font-size: smaller;
+    }
+
+}

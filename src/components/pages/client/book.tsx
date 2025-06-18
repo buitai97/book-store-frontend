@@ -1,9 +1,11 @@
+import BookDetail from "@/components/client/book/book.detail"
+
+
+
+
 const BookPage = () => {
-    return (
-        <div>
-            book page
-        </div>
-    )
+    return <BookDetail />
+
 }
 
 export default BookPage
