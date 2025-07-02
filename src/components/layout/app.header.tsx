@@ -17,6 +17,8 @@ const AppHeader = (props: any) => {
 
     const navigate = useNavigate();
 
+    const { cart } = useCurrentApp()
+
     const handleLogout = async () => {
         const res = await logoutAPI()
         if (res.data) {
@@ -48,6 +50,7 @@ const AppHeader = (props: any) => {
         },
 
     ];
+
     if (user?.role === 'ADMIN') {
         items.unshift({
             label: <Link to='/admin'>Admin dashboard</Link>,
@@ -59,30 +62,24 @@ const AppHeader = (props: any) => {
 
     const contentPopover = () => {
         return (
-            <div className='pop-cart-body'>
-                {/* <div className='pop-cart-content'>
-                    {carts?.map((book, index) => {
+            <div className='pop-cart-content'>
+                <div className='pop-cart-body'>
+                    {cart.map((book) => {
                         return (
-                            <div className='book' key={`book-${index}`}>
-                                <img src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${book?.detail?.thumbnail}`} />
-                                <div>{book?.detail?.mainText}</div>
-                                <div className='price'>
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(book?.detail?.price ?? 0)}
-                                </div>
+                            <div className='pop-cart-item'>
+                                <img src={`${import.meta.env.VITE_BACKEND_URL}/images/book/${book.detail.thumbnail}`} />
+                                <span>{book.detail.mainText}</span>
+                                <span className='price'>{book.detail.price} đ</span>
                             </div>
                         )
                     })}
                 </div>
-                {carts.length > 0 ?
-                    <div className='pop-cart-footer'>
-                        <button onClick={() => navigate('/order')}>Xem giỏ hàng</button>
-                    </div>
-                    :
-                    <Empty
-                        description="Không có sản phẩm trong giỏ hàng"
-                    />
-                } */}
+                <div className='pop-cart-footer'>
+                    <button>View Cart</button>
+                </div>
             </div>
+
+
         )
     }
     return (
@@ -115,12 +112,11 @@ const AppHeader = (props: any) => {
                                     className="popover-carts"
                                     placement="topRight"
                                     rootClassName="popover-carts"
-                                    title={"Sản phẩm mới thêm"}
+                                    title={"Added Items"}
                                     content={contentPopover}
                                     arrow={true}>
                                     <Badge
-                                        // count={carts?.length ?? 0}
-                                        count={10}
+                                        count={cart?.length ?? 0}
                                         size={"small"}
                                         showZero
                                     >

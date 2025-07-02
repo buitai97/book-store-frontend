@@ -104,4 +104,10 @@ declare global {
         "category": string
     }
 
+    interface ICartItem {
+        _id: string,
+        quantity: number,
+        detail: IBookTable,
+    }
+
 }

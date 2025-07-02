@@ -46,6 +46,9 @@ const ModalGallery = (props: IProps) => {
                 </Col>
                 <Col span={8}>
                     <Row>
+                        {title}
+                    </Row>
+                    <Row>
                         {
                             items?.map((item, i) => {
                                 return (

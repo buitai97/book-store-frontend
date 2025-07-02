@@ -102,8 +102,8 @@ export const deleteUserAPI = (id: string) => {
 
 // Book API
 
-export const getBooksAPI = (query: string) => {
-  const urlBackend = `/api/v1/book?${query}`;
+export const getBooksAPI = (params: string) => {
+  const urlBackend = `/api/v1/book?${params}`;
   return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend, {
     headers: {
       delay: 1000
@@ -180,3 +180,12 @@ export const deleteBookAPI = (id: string) => {
 
   return axios.delete<IBackendRes<IRegister>>(urlBackend);
 };
+
+export const getBookByIDAPI = (id: string) => {
+  const urlBackend = `/api/v1/book/${id}`
+  return axios.get<IBackendRes<IBookTable>>(urlBackend, {
+    headers: {
+      delay: 3000
+    }
+  })
+}

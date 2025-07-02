@@ -1,5 +1,5 @@
 import { FilterTwoTone, ReloadOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Divider, Flex, Form, GetProp, Input, InputNumber, message, Pagination, Rate, Row, Space, Spin, Tabs, TabsProps, theme, Typography } from "antd"
+import { Button, Checkbox, Col, Divider, Flex, Form, GetProp, InputNumber, message, Pagination, Rate, Row, Spin, Tabs, TabsProps, Typography } from "antd"
 import './home.scss'
 import { useEffect, useState } from "react";
 import { getBookCategoriesAPI, getBooksAPI } from "@/services/api";
@@ -196,9 +196,10 @@ const HomePage = () => {
                 </Col>
                 <Col md={20} xs={24} >
                     <Tabs defaultActiveKey="1" items={items} onChange={handleTabChange} />
-                    <div className="wrapper">
-                        <Spin tip="Loading..." spinning={isLoading}>
-                            <Flex gap={8} wrap="wrap">
+                    <Spin tip="Loading..." spinning={isLoading}>
+                        <div className="wrapper">
+
+                            <div className="flex-container">
                                 {bookList.map((book) => (
                                     <div className="card" key={book._id}>
                                         <Link to={`/book/${book._id}`}>
@@ -215,15 +216,16 @@ const HomePage = () => {
                                         </div>
 
                                         <div className="card_rating">
-                                            <Rate style={{ fontSize: 12 }} allowHalf defaultValue={5} />
+                                            <Rate style={{ fontSize: 12 }} disabled allowHalf defaultValue={5} />
                                             <span style={{ margin: "10px" }}>{book.sold || 0} Sold</span>
                                         </div>
                                     </div>
                                 ))}
-                            </Flex>
-                        </Spin>
+                            </div>
+                        </div>
+                    </Spin>
+                    
 
-                    </div>
                     <Divider></Divider>
                     <Pagination
                         align="center"

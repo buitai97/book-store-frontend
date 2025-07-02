@@ -1,3 +1,4 @@
+@import "/src/styles//variables";
 *{
     margin:0;
 }
@@ -12,4 +13,40 @@ body {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 20px auto;
+}
+
+.pop-cart-content{
+    .pop-cart-body{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .pop-cart-item {
+            display: flex;
+            gap: 10px;
+            font-size: xx-small;
+
+            .price{
+                color: $orange;
+            }
+            img{
+                width: 30px;
+            }
+        }
+    }
+
+    .pop-cart-footer{
+        right: 20px;
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+            button{
+                background-color: $orange;
+                color: white;
+                border: none;
+                font-size: medium;
+                border-radius: 2px;
+                padding: 5px 15px;
+                
+            }
+        }
 }

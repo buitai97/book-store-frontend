@@ -9,6 +9,8 @@ interface IAppContext {
     user: IUser | null;
     isAppLoading: boolean;
     setIsAppLoading: (v: boolean) => void;
+    cart: ICartItem[];
+    setCart: (v: ICartItem[]) => void;
 }
 
 const CurrentAppContext = createContext<IAppContext | null>(null);
@@ -21,6 +23,14 @@ export const AppProvider = (props: TProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [user, setUser] = useState<IUser | null>(null);
     const [isAppLoading, setIsAppLoading] = useState<boolean>(true);
+    const [cart, setCart] = useState<ICartItem[]>([])
+
+    useEffect(() => {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            setCart(JSON.parse(savedCart));
+        }
+    }, []);
 
     useEffect(() => {
         const fetchAccount = async () => {
@@ -40,7 +50,7 @@ export const AppProvider = (props: TProps) => {
             {isAppLoading === false ?
                 <CurrentAppContext.Provider value={{
                     isAuthenticated, user, setIsAuthenticated, setUser,
-                    isAppLoading, setIsAppLoading
+                    isAppLoading, setIsAppLoading, cart, setCart
                 }}>
                     {props.children}
                 </CurrentAppContext.Provider>

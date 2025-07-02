@@ -1,14 +1,19 @@
 .wrapper{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+.flex-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin: 30px;
+    gap: 10px;
+    border: 1px solid #000;
 }
 .card {
     width: 160px;
+    flex: 0 0 auto;
     padding: 1rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid #e0e0e0;
-
     &__image{
         align-self: center;
         width: 150px;
@@ -25,5 +30,8 @@
     &__rating{
         font-size: smaller;
     }
+    
+
+
 
 }
