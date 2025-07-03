@@ -26,29 +26,16 @@ export const registerAPI = (
   return axios.post<IBackendRes<IRegister>>(
     urlBackend,
     { fullName, password, email, phone },
-    {
-      headers: {
-        delay: 2000,
-      },
-    }
   );
 };
 
 export const logoutAPI = () => {
   const urlBackend = "/api/v1/auth/logout";
-  return axios.post(urlBackend, {
-    Headers: {
-      delay: 2000,
-    },
-  });
+  return axios.post(urlBackend);
 };
 export const fetchAccountAPI = () => {
   const urlBackend = "/api/v1/auth/account";
-  return axios.get<IBackendRes<IFetchAccount>>(urlBackend, {
-    headers: {
-      delay: 1000,
-    },
-  });
+  return axios.get<IBackendRes<IFetchAccount>>(urlBackend);
 };
 
 export const getUsersAPI = (query: string) => {
@@ -183,9 +170,5 @@ export const deleteBookAPI = (id: string) => {
 
 export const getBookByIDAPI = (id: string) => {
   const urlBackend = `/api/v1/book/${id}`
-  return axios.get<IBackendRes<IBookTable>>(urlBackend, {
-    headers: {
-      delay: 3000
-    }
-  })
+  return axios.get<IBackendRes<IBookTable>>(urlBackend)
 }

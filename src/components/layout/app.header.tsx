@@ -75,7 +75,7 @@ const AppHeader = (props: any) => {
                     })}
                 </div>
                 <div className='pop-cart-footer'>
-                    <button>View Cart</button>
+                    <button onClick={()=> navigate('/order')}>View Cart</button>
                 </div>
             </div>
 
@@ -116,6 +116,7 @@ const AppHeader = (props: any) => {
                                     content={contentPopover}
                                     arrow={true}>
                                     <Badge
+                                        onClick={() => navigate("/order")}
                                         count={cart?.length ?? 0}
                                         size={"small"}
                                         showZero

@@ -6,6 +6,7 @@
         -webkit-user-select: none;
         height: 55px;
         color: #808089;
+        background-color: white;
         width: 100%;
         max-width: 1440px;
         margin: 0 auto;
@@ -92,15 +93,16 @@
     }
 
     .navigation {
-        display: block;
+        display: flex;
+        justify-content: flex-end;
         opacity: 1;
         height: auto;
 
         &__item {
             opacity: 0.8;
             display: inline-block;
+            flex-shrink: 0;
             padding: 0 5px;
-
             &:hover {
                 cursor: pointer;
                 opacity: 1;

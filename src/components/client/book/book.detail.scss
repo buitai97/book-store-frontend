@@ -7,7 +7,7 @@
         font-size: 1.5rem;
     }
     .price{
-        background-color: aliceblue;
+        background-color: $light-gray;
         color: #F4511E;
         font-size:2rem;
         width: 100%;
@@ -16,7 +16,7 @@
     }
 
     .control{
-        border: 1px solid #d9d9d9;
+        border: 1px solid $gray;
         width: 2rem;
         height: 2rem;
         box-sizing: border-box;
@@ -27,8 +27,7 @@
             width: 30px;
             height: 2rem;
             border: 0;
-            border-top: 1px solid #d9d9d9;
-            border-bottom: 1px solid #d9d9d9;
+            border: 1px solid $gray;
             padding: 0;
             box-sizing: border-box !important;
             text-align: center;
@@ -38,11 +37,11 @@
     .left{
         display: inline-block;
         width: 70px;
-        color: #78909C
+        color: $dark-gray
     }
     .cart{
-        background-color: #ffedeb;
-        color: #ce7163;
+        background-color: $light-orange;
+        color: $orange;
         border: 1px solid #e7b3ad;
         height: 2rem;
         border-radius: 2px;

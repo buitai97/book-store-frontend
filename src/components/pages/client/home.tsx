@@ -195,7 +195,7 @@ const HomePage = () => {
 
                 </Col>
                 <Col md={20} xs={24} >
-                    <Tabs defaultActiveKey="1" items={items} onChange={handleTabChange} />
+                    <Tabs defaultActiveKey="1" style={{ padding: "0 10px" }} items={items} onChange={handleTabChange} />
                     <Spin tip="Loading..." spinning={isLoading}>
                         <div className="wrapper">
 
@@ -224,7 +224,7 @@ const HomePage = () => {
                             </div>
                         </div>
                     </Spin>
-                    
+
 
                     <Divider></Divider>
                     <Pagination

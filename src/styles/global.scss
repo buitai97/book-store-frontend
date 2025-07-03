@@ -5,7 +5,7 @@
 
 
 body {
-    background-color: aliceblue;
+    background-color: $gray;
 }
 
 .form-container{
@@ -41,6 +41,7 @@ body {
         justify-content: flex-end;
             button{
                 background-color: $orange;
+                cursor: pointer;
                 color: white;
                 border: none;
                 font-size: medium;
