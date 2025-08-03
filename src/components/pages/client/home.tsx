@@ -1,6 +1,6 @@
 import { FilterTwoTone, ReloadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Divider, Flex, Form, GetProp, InputNumber, message, Pagination, Rate, Row, Spin, Tabs, TabsProps, Typography } from "antd"
-import './home.scss'
+import 'styles/home.scss'
 import { useEffect, useState } from "react";
 import { getBookCategoriesAPI, getBooksAPI } from "@/services/api";
 import { convertNumberToVND } from "@/services/helper";
@@ -217,7 +217,7 @@ const HomePage = () => {
 
                                         <div className="card_rating">
                                             <Rate style={{ fontSize: 12 }} disabled allowHalf defaultValue={5} />
-                                            <span style={{ margin: "10px" }}>{book.sold || 0} Sold</span>
+                                            <div>{book.sold || 0} Sold</div>
                                         </div>
                                     </div>
                                 ))}

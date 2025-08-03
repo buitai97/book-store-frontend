@@ -15,7 +15,8 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler',
-        silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import']
+        silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'],
+        additionalData: `@import "/src/styles//variables";`
       }
     }
   }

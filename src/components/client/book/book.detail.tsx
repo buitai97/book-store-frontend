@@ -2,7 +2,7 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons"
 import { Col, message, Rate, Row } from "antd"
 import { ChangeEvent, useRef, useState } from "react"
 import ImageGallery from "react-image-gallery";
-import "./book.detail.scss"
+import "styles/book/book.detail.scss"
 import { convertNumberToVND } from "@/services/helper";
 import { BsCartPlus } from "react-icons/bs";
 import ModalGallery from "./modal.gallery";

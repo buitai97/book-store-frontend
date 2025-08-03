@@ -1,7 +1,7 @@
 import { Col, Modal, Row, Image } from "antd";
 import { useEffect, useRef, useState } from "react";
 import ImageGallery from "react-image-gallery";
-import './modal.gallery.scss'
+import 'styles/book/modal.gallery.scss'
 
 interface IProps {
     isOpen: boolean;

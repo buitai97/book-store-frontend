@@ -172,3 +172,31 @@ export const getBookByIDAPI = (id: string) => {
   const urlBackend = `/api/v1/book/${id}`
   return axios.get<IBackendRes<IBookTable>>(urlBackend)
 }
+
+export const createOrderAPI = (
+  name: string,
+  address: string,
+  phone: string,
+  totalPrice: number,
+  type: string,
+  detail: {
+    bookName: string,
+    quantity: number,
+    _id: string
+  }[]
+) => {
+  const urlBackend = `/api/v1/order`
+  return axios.post<IBackendRes<IRegister>>(urlBackend, {
+    name, address, phone, totalPrice, type, detail
+  }, {
+    headers: {
+      delay: 2000
+    }
+  }
+  )
+}
+
+export const getOrderHistoryAPI = () => {
+  const urlBackend = `/api/v1/history`
+  return axios.get(urlBackend)
+}

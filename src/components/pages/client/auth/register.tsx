@@ -78,7 +78,7 @@ const RegisterPage = () => {
             <Form.Item<FieldType>
                 label="Phone"
                 name="phone"
-                rules={[{ required: true, message: 'Please input your phone number!' }, { type: "email", message: "Not a valid email!" }]}
+                rules={[{ required: true, message: 'Please input your phone number!' }]}
             >
                 <Input />
             </Form.Item>
