@@ -5,7 +5,7 @@ import ImageGallery from "react-image-gallery";
 import "styles/book/book.detail.scss"
 import { convertNumberToVND } from "@/services/helper";
 import { BsCartPlus } from "react-icons/bs";
-import ModalGallery from "./modal.gallery";
+import ModalGallery from "components/client/book/modal.gallery";
 import { useCurrentApp } from "components/context/app.context"
 import { useNavigate } from "react-router-dom";
 interface IProps {
