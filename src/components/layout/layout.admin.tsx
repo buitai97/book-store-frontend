@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     AppstoreOutlined,
     ExceptionOutlined,
@@ -10,7 +10,7 @@ import {
     MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Dropdown, Space, Avatar, Result, Button } from 'antd';
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from '../context/app.context';
 import type { MenuProps } from 'antd';
@@ -21,9 +21,9 @@ const { Content, Footer, Sider } = Layout;
 
 const LayoutAdmin = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const [activeMenu, setActiveMenu] = useState('dashboard');
+    const [activeMenu, setActiveMenu] = useState('');
     const { user, isAuthenticated, setIsAuthenticated, setUser } = useCurrentApp();
-
+    const location = useLocation()
 
     const handleLogout = async () => {
         setUser(null)
@@ -88,6 +88,11 @@ const LayoutAdmin = () => {
         },
 
     ];
+
+    useEffect(() => {
+        const active: any = items.find(item => location.pathname === (item!.key as any)) ?? "/admin"
+        setActiveMenu(active.key)
+    }, [location])
 
     const urlAvatar = `${import.meta.env.VITE_BACKEND_URL}/images/avatar/${user?.avatar}`;
     if (!isAuthenticated) {

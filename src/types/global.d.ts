@@ -110,4 +110,30 @@ declare global {
         detail: IBookTable,
     }
 
+    interface IDashBoard {
+        countOrder: number
+        countUser: number
+        countBook: number
+    }
+
+    interface IOrderTable {
+        _id: string,
+        name: string,
+        address: string,
+        phone: string,
+        type: string,
+        paymentStatus: string,
+        paymentRef: string,
+        detail: [
+            {
+                bookName: string,
+                quantity: number,
+                _id: string
+            }
+        ],
+        totalPrice: string,
+        createdAt: Date,
+        updatedAt: Date,
+    }
+
 }

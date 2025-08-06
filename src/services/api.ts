@@ -1,4 +1,3 @@
-import { UploadFile } from "antd";
 import axios from "services/axios.customize";
 
 //User API
@@ -38,6 +37,15 @@ export const fetchAccountAPI = () => {
   return axios.get<IBackendRes<IFetchAccount>>(urlBackend);
 };
 
+export const getDashboardAPI = () => {
+  const urlBackend = "/api/v1/database/dashboard"
+  return axios.get<IBackendRes<IDashBoard>>(urlBackend)
+}
+
+export const getAllOrdersAPI = () => {
+  const urlBackend = "/api/v1/order?current=1&pageSize=10"
+  return axios.get<IBackendRes<IModelPaginate<IOrderTable>>>(urlBackend)
+}
 export const getUsersAPI = (query: string) => {
   const urlBackend = `/api/v1/user?${query}`;
   return axios.get<IBackendRes<IModelPaginate<IUserTable>>>(urlBackend);
@@ -54,7 +62,7 @@ export const addUserAPI = (
   password: string,
   phone: string
 ) => {
-  const urlBackend = "/api/v1/user?";
+  const urlBackend = "/api/v1/user";
   return axios.post<IBackendRes<IRegister>>(urlBackend, {
     fullName,
     email,
@@ -72,14 +80,23 @@ export const createUsersBulkAPI = (users: ICreateUser[]) => {
   });
 };
 
-export const updateUserAPI = (id: string, fullName: string, phone: string) => {
+export const updateUserAPI = (_id: string, avatar: string, fullName: string, phone: string) => {
   const urlBackend = "/api/v1/user";
   return axios.put<IBackendRes<IRegister>>(urlBackend, {
-    _id: id,
-    fullName: fullName,
-    phone: phone,
+    fullName,
+    phone,
+    avatar,
+    _id
   });
 };
+
+export const updateUserPasswordAPI = (email: string, oldpass: string, newpass: string) => {
+  const urlBackend = "/api/v1/user/change-password"
+  return axios.post<IBackendRes<IRegister>>(urlBackend, {
+    email, oldpass, newpass
+  })
+}
+
 
 export const deleteUserAPI = (id: string) => {
   const urlBackend = `/api/v1/user/${id}`;
@@ -88,7 +105,6 @@ export const deleteUserAPI = (id: string) => {
 };
 
 // Book API
-
 export const getBooksAPI = (params: string) => {
   const urlBackend = `/api/v1/book?${params}`;
   return axios.get<IBackendRes<IModelPaginate<IBookTable>>>(urlBackend, {

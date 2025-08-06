@@ -4,7 +4,7 @@ import 'styles/home.scss'
 import { useEffect, useState } from "react";
 import { getBookCategoriesAPI, getBooksAPI } from "@/services/api";
 import { convertNumberToVND } from "@/services/helper";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 
 interface FilterValues {
@@ -40,6 +40,8 @@ const items: TabsProps['items'] = [
 ];
 
 const HomePage = () => {
+
+    const [searchTerm] = useOutletContext() as any
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const [bookList, setBookList] = useState<IBookTable[]>([])
@@ -66,6 +68,9 @@ const HomePage = () => {
         }
         if (categoryFilterQuery) {
             query += `&category=${checkedCategories}`
+        }
+        if (searchTerm) {
+            query += `&mainText=/${searchTerm}/i`
         }
         const res = await getBooksAPI(query)
         if (res && res.data) {
@@ -125,7 +130,7 @@ const HomePage = () => {
 
     useEffect(() => {
         fetchData()
-    }, [currentPage, currentPageSize, sortQuery, checkedCategories, minPrice, maxPrice])
+    }, [currentPage, currentPageSize, sortQuery, checkedCategories, minPrice, maxPrice, searchTerm])
 
 
 

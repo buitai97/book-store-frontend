@@ -9,31 +9,53 @@ import './app.header.scss';
 import { Link } from 'react-router-dom';
 import { useCurrentApp } from 'components/context/app.context';
 import { logoutAPI } from '@/services/api';
+import ManageUserModal from '../client/account/modal.manageUser';
 
-const AppHeader = (props: any) => {
+interface IProps {
+    setSearchTerm: (v: string) => void,
+    searchTerm: string
+}
+const AppHeader = (props: IProps) => {
+
+
     const [openDrawer, setOpenDrawer] = useState(false);
+
+    const [isManageUserModalOpen, setIsManageUserModalOpen] = useState(false);
+
+    const showManageUserModal = () => {
+        setIsManageUserModalOpen(true)
+    }
+
+    const closeManageUserModal = () => {
+        setIsManageUserModalOpen(false)
+    }
 
     const { isAuthenticated, user, setUser, setIsAuthenticated } = useCurrentApp();
 
     const navigate = useNavigate();
 
-    const { cart } = useCurrentApp()
+    const { cart, setCart } = useCurrentApp()
 
     const handleLogout = async () => {
         const res = await logoutAPI()
         if (res.data) {
             setUser(null);
+            setCart([])
             setIsAuthenticated(false)
             localStorage.removeItem('access_token')
+            localStorage.removeItem("cart")
             navigate("/login")
         }
     }
+
+
+
 
     let items = [
         {
             label: <label
                 style={{ cursor: 'pointer' }}
-                onClick={() => alert("me")}
+                onClick={showManageUserModal}
             >Manage Account</label>,
             key: 'account',
         },
@@ -75,7 +97,7 @@ const AppHeader = (props: any) => {
                     })}
                 </div>
                 <div className='pop-cart-footer'>
-                    <button onClick={()=> navigate('/order')}>View Cart</button>
+                    <button onClick={() => navigate('/order')}>View Cart</button>
                 </div>
             </div>
 
@@ -99,8 +121,8 @@ const AppHeader = (props: any) => {
                             <input
                                 className="input-search" type={'text'}
                                 placeholder="What are you looking for"
-                            // value={props.searchTerm}
-                            // onChange={(e) => props.setSearchTerm(e.target.value)}
+                                value={props.searchTerm}
+                                onChange={(e) => props.setSearchTerm(e.target.value)}
                             />
                         </div>
 
@@ -155,6 +177,11 @@ const AppHeader = (props: any) => {
                 <Divider />
             </Drawer>
 
+            <ManageUserModal
+                closeManageUserModal={closeManageUserModal}
+                isManageUserModalOpen={isManageUserModalOpen}
+                showManageUserModal={showManageUserModal}
+            />
         </>
     )
 };

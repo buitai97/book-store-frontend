@@ -7,6 +7,7 @@ import { convertNumberToVND } from "@/services/helper";
 import { BsCartPlus } from "react-icons/bs";
 import ModalGallery from "./modal.gallery";
 import { useCurrentApp } from "components/context/app.context"
+import { useNavigate } from "react-router-dom";
 interface IProps {
     currentBook: IBookTable | null
 }
@@ -16,7 +17,8 @@ const BookDetail = (props: IProps) => {
     const [currentIndex, setCurrentIndex] = useState<number>()
     const [quantity, setQuantity] = useState<number>(1)
     const refGallery = useRef<ImageGallery>(null)
-    const { cart, setCart } = useCurrentApp()
+    const { user, cart, setCart } = useCurrentApp()
+    const navigate = useNavigate()
 
     const slider = currentBook?.slider?.map((url) => ({
         original: `${import.meta.env.VITE_BACKEND_URL}/images/book/${url}`,
@@ -55,7 +57,11 @@ const BookDetail = (props: IProps) => {
         }
     }
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (isBuynow = false) => {
+        if (!user) {
+            message.error("You need to log in first!")
+            return
+        }
         const cartStorage = localStorage.getItem("cart")
         let currentCart: ICartItem[] = []
         if (cartStorage && currentBook) {
@@ -78,12 +84,15 @@ const BookDetail = (props: IProps) => {
                 quantity: quantity!,
                 detail: currentBook!
             }]
+        }
 
+        if (isBuynow) {
+            navigate("/order")
+        } else {
+            message.success("Added item to cart successfully!")
         }
         localStorage.setItem("cart", JSON.stringify(currentCart))
         setCart(currentCart)
-        console.log(currentCart)
-        message.success("Added item to cart successfully!")
     }
 
     return (
@@ -137,11 +146,11 @@ const BookDetail = (props: IProps) => {
                                     </span>
                                 </div>
                                 <div className="buy">
-                                    <button className="cart" onClick={handleAddToCart} style={{ cursor: "pointer" }}>
+                                    <button className="cart" onClick={() => handleAddToCart()} style={{ cursor: "pointer" }}>
                                         <BsCartPlus className="icon-cart" />
                                         <span>Add to Cart</span>
                                     </button>
-                                    <button className="now" style={{ cursor: "pointer" }}>Buy Now</button>
+                                    <button className="now" onClick={() => handleAddToCart(true)} style={{ cursor: "pointer" }}>Buy Now</button>
                                 </div>
                             </Col>
 
