@@ -1,4 +1,4 @@
-import { updateUserAPI } from "@/services/api"
+import { updateUserWithNoAvatarAPI } from "@/services/api"
 import { App, Form, FormProps, Input, Modal } from "antd"
 import { useEffect, useState } from "react"
 
@@ -25,7 +25,7 @@ const EditUser = (props: IProps) => {
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         setIsSubmit(true)
         if (values.fullName && values.phone && dataEdit) {
-            const res = updateUserAPI(dataEdit?._id, values.fullName, values.phone)
+            const res = updateUserWithNoAvatarAPI(dataEdit?._id, values.fullName, values.phone)
 
             if (res && (await res).data) {
                 message.success("Update User Successfully!")

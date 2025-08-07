@@ -26,6 +26,8 @@ const TableBook = () => {
     const [selectedBook, setSelectedBook] = useState<IBookTable | null>(null)
     const [currentDataTable, setCurrentDataTable] = useState<IBookTable[]>([])
 
+    const CSVComponent = CSVLink as unknown as React.ComponentType<any>
+
     const [openCreateModal, setOpenCreateModal] = useState<boolean>(false)
     const [openDetailModal, setOpenDetailModal] = useState<boolean>(false)
     const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false)
@@ -123,6 +125,8 @@ const TableBook = () => {
         tableRef.current?.reloadAndRest?.();
     }
 
+    const
+
     return (
         <>
             <ProTable<IBookTable, TSearch>
@@ -170,9 +174,9 @@ const TableBook = () => {
                     }
                 }
                 toolBarRender={() => [
-                    <CSVLink data={currentDataTable} filename="book.csv">
+                    <CSVComponent data={currentDataTable} filename="book.csv">
                         <Button type="primary" icon={<ExportOutlined />}>Export</Button >
-                    </CSVLink>,
+                    </CSVComponent>,
                     <Button type="primary" icon={<PlusOutlined />} onClick={() => {
                         setOpenCreateModal(true)
                     }}>Add Book</Button>

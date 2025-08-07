@@ -80,6 +80,16 @@ export const createUsersBulkAPI = (users: ICreateUser[]) => {
   });
 };
 
+export const updateUserWithNoAvatarAPI = (_id: string, fullName: string, phone: string) => {
+  const urlBackend = "/api/v1/user";
+  return axios.put<IBackendRes<IRegister>>(urlBackend, {
+    fullName,
+    phone,
+    _id
+  });
+};
+
+
 export const updateUserAPI = (_id: string, avatar: string, fullName: string, phone: string) => {
   const urlBackend = "/api/v1/user";
   return axios.put<IBackendRes<IRegister>>(urlBackend, {

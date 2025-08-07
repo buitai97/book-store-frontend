@@ -291,6 +291,7 @@ const CreateBookModal = (props: IProps) => {
                   multiple={false}
                   maxCount={1}
                   fileList={fileListThumbnail}
+                  
                   customRequest={(options) =>
                     handleUploadFile(options, "thumbnail")
                   }
@@ -319,6 +320,7 @@ const CreateBookModal = (props: IProps) => {
                 name="slider"
                 label="Upload Slider"
                 rules={[{ required: true, message: "Please upload slider!" }]}
+                
               >
                 <Upload
                   listType="picture-card"
@@ -330,6 +332,7 @@ const CreateBookModal = (props: IProps) => {
                   customRequest={(options) =>
                     handleUploadFile(options, "slider")
                   }
+                  
                 >
                   {uploadButton}
                 </Upload>
