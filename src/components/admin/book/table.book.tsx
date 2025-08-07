@@ -125,8 +125,6 @@ const TableBook = () => {
         tableRef.current?.reloadAndRest?.();
     }
 
-    const
-
     return (
         <>
             <ProTable<IBookTable, TSearch>
