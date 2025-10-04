@@ -30,7 +30,7 @@ An online **Book Store** web application where users can browse, search, and pur
    ```bash
    git clone https://github.com/yourusername/bookstore-app.git
    cd bookstore-app
-  ```
+
 2. npm install
 # or
 yarn install
