@@ -19,9 +19,9 @@ An online **Book Store** web application where users can browse, search, and pur
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- React.js / Next.js  
-- Redux Toolkit (for state management)  
-- Bootstrap  
+- React.js / React Context
+- SCSS 
+- Antd Design 
 
 ## Demo
 https://book-store-zeta-orpin.vercel.app/
