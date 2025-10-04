@@ -1,7 +1,6 @@
 import { getDashboardAPI } from "@/services/api";
-import { Card, Col, Row, Statistic, StatisticProps } from "antd";
+import { Card, Col, Row, Statistic } from "antd";
 import { useEffect, useState } from "react";
-import CountUp from 'react-countup';
 
 const DashBoardPage = () => {
     const [dashboardStat, setDashboardStat] = useState<IDashBoard>()

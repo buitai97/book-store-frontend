@@ -1,5 +1,5 @@
 import { getAllOrdersAPI } from "@/services/api";
-import { ProColumns, ProTable, ProTableProps } from "@ant-design/pro-components";
+import { ProColumns, ProTable } from "@ant-design/pro-components";
 import { useEffect, useState } from "react";
 
 

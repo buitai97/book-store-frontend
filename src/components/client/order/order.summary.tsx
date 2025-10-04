@@ -1,7 +1,6 @@
 import { useCurrentApp } from "@/components/context/app.context";
 import { convertNumberToVND } from "@/services/helper";
 import { Button, Divider } from "antd";
-import { useEffect, useState } from "react";
 import 'styles/order/order.scss'
 
 interface IProps {

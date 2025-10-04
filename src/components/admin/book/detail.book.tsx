@@ -13,7 +13,7 @@ interface IProps {
 
 
 const DetailBook = (props: IProps) => {
-    const { openDetailModal, onClose, setOpenDetailModal, book } = props
+    const { openDetailModal, onClose, book } = props
     const [imgList, setImgList] = useState<string[]>([])
     const items: DescriptionsProps['items'] = [
         {

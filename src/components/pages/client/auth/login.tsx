@@ -34,7 +34,7 @@ const LoginPage = () => {
             else {
                 notification.error({
                     message: "Error",
-                    description: res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                    description: "Wrong email or password!",
                     duration: 5
                 })
                 setIsSubmit(false)

@@ -1,4 +1,4 @@
-import { Col, Modal, Row, Image } from "antd";
+import { Modal } from "antd";
 import { useEffect, useRef, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import 'styles/book/modal.gallery.scss'
