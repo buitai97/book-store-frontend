@@ -9,7 +9,6 @@ An online **Book Store** web application where users can browse, search, and pur
 - 🏠 **Home Page** – Display featured and latest books  
 - 🔍 **Search & Filter** – Find books by title, author, or genre  
 - 🛒 **Shopping Cart** – Add, update, or remove books from the cart  
-- 💳 **Checkout System** – Secure payment integration (Stripe / PayPal)  
 - 👤 **User Authentication** – Register, login, and manage user profile  
 - 🧑‍💼 **Admin Dashboard** – Manage books, orders, and users  
 - 📦 **Order History** – View previous purchases  
@@ -22,15 +21,7 @@ An online **Book Store** web application where users can browse, search, and pur
 **Frontend:**
 - React.js / Next.js  
 - Redux Toolkit (for state management)  
-- Tailwind CSS / Bootstrap  
+- Bootstrap  
 
-## ⚙️ Installation & Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/bookstore-app.git
-   cd bookstore-app
-
-2. npm install
-# or
-yarn install
+## Demo
+https://book-store-zeta-orpin.vercel.app/
