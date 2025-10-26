@@ -1,6 +1,6 @@
 # 📚 Book Store Application
 
-An online **Book Store** web application where users can browse, search, and purchase books. The project provides features like user authentication, product management, a shopping cart, and secure payment integration.
+An online **Book Store** web application where users can browse, search, and purchase books. The project provides features like user authentication, product management, a shopping cart.
 
 ---
 
@@ -20,7 +20,7 @@ An online **Book Store** web application where users can browse, search, and pur
 
 **Frontend:**
 - React.js / React Context
-- SCSS 
+- Tailwind
 - Antd Design 
 
 ## Demo
